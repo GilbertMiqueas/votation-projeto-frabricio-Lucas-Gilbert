@@ -1,0 +1,48 @@
+tml {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+body {
+	background: #80ff80;
+}
+
+#divLogin{
+	position: absolute;
+  width: 300px;
+  height: 150px;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+  text-align: center;
+  background: white;	
+  
+}
+#titleDiv{
+	justify-content: center;
+	align-items: center;
+	margin-top: 5%;
+	vertical-align:middle;
+}
+
+#txtLogin{
+	margin: auto;
+    width: 30%;
+    padding: 10px;
+	display:table-cell;
+	position:absolute;
+	}
+#txtPassword{
+	margin: auto;
+    width: 30%;
+    padding: 10px;
+	display:table-cell;
+	position:absolute;
+	margin-top:5%;
+	}
+#loginDiv{
+	justify-content: center;
+	align-items: center;
+	margin-top: 5%;
+	vertical-align:middle;
+   }
