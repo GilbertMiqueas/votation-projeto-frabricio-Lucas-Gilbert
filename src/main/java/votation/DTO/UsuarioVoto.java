@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package votation.DTO;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,11 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Aluno
+ * 
+ * @author Gilbert Cantaleano
  */
 @Entity
 @Table(name = "usuario_voto")
@@ -28,7 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UsuarioVoto.findAll", query = "SELECT u FROM UsuarioVoto u")
     , @NamedQuery(name = "UsuarioVoto.findByIdUsuarioVoto", query = "SELECT u FROM UsuarioVoto u WHERE u.idUsuarioVoto = :idUsuarioVoto")
     , @NamedQuery(name = "UsuarioVoto.findByUsuario", query = "SELECT u FROM UsuarioVoto u WHERE u.usuario = :usuario")
-    , @NamedQuery(name = "UsuarioVoto.findByNumeroCanditado", query = "SELECT u FROM UsuarioVoto u WHERE u.numeroCanditado = :numeroCanditado")})
+    , @NamedQuery(name = "UsuarioVoto.findByNumeroCanditado", query = "SELECT u FROM UsuarioVoto u WHERE u.numeroCanditado = :numeroCanditado")
+    , @NamedQuery(name = "UsuarioVoto.findByUsuarioSecao", query = "SELECT u FROM UsuarioVoto u WHERE u.usuarioSecao = :usuarioSecao")
+    , @NamedQuery(name = "UsuarioVoto.findByData", query = "SELECT u FROM UsuarioVoto u WHERE u.data = :data")})
 public class UsuarioVoto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +47,11 @@ public class UsuarioVoto implements Serializable {
     private Integer usuario;
     @Column(name = "numero_canditado")
     private Integer numeroCanditado;
+    @Column(name = "usuario_secao")
+    private Integer usuarioSecao;
+    @Column(name = "data")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date data;
 
     public UsuarioVoto() {
     }
@@ -73,6 +84,22 @@ public class UsuarioVoto implements Serializable {
         this.numeroCanditado = numeroCanditado;
     }
 
+    public Integer getUsuarioSecao() {
+        return usuarioSecao;
+    }
+
+    public void setUsuarioSecao(Integer usuarioSecao) {
+        this.usuarioSecao = usuarioSecao;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -97,5 +124,5 @@ public class UsuarioVoto implements Serializable {
     public String toString() {
         return "votation.DTO.UsuarioVoto[ idUsuarioVoto=" + idUsuarioVoto + " ]";
     }
-    
+
 }

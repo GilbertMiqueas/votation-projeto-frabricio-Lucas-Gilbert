@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package votation.DTO;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Aluno
+ * 
+ * @author Gilbert Cantaleano
  */
 @Entity
 @Table(name = "uf")
@@ -38,6 +42,8 @@ public class Uf implements Serializable {
     private Integer idUf;
     @Column(name = "nome")
     private String nome;
+    @OneToMany(mappedBy = "uf")
+    private List<Municipio> municipioList;
 
     public Uf() {
     }
@@ -60,6 +66,15 @@ public class Uf implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @XmlTransient
+    public List<Municipio> getMunicipioList() {
+        return municipioList;
+    }
+
+    public void setMunicipioList(List<Municipio> municipioList) {
+        this.municipioList = municipioList;
     }
 
     @Override
@@ -86,5 +101,5 @@ public class Uf implements Serializable {
     public String toString() {
         return "votation.DTO.Uf[ idUf=" + idUf + " ]";
     }
-    
+
 }

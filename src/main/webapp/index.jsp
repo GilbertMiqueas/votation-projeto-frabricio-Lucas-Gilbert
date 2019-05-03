@@ -4,33 +4,34 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<title>Seleção de usuário</title>
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-<title>Voto</title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <link href="./css/index.css" rel="stylesheet" type="text/css"> 
 </head>
 <body>
 
-	<div class='is-center'>
-		<div>
-			<h3>Bem-vindos ao sistema de votação</h3>
-		</div>
+	
+		<div class = container>
+			<h3>Bem-vindo ao sistema de votação</h3>
 		
-	</div>
-	<div class='is-center'>
-		<p>
-				<a href='voto.jsp'>
-				<button class="button primary">Votar</button>
-			</a>
-			</p>
-			
-		</div>
-		<div class='pull-right'>
+			<!-- Botoes de seleção de usuário-->
 		
-			<fieldset>
-				<legend>Membro TRE</legend>
-				<a href='./cadastro_eleitor.jsp'>
-					<button class="button primary">Cadastro de Eleitor</button>
-				</a>
-			</fieldset>
 		</div>
+			<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<a href='login.jsp'>
+						<button>Iniciar sessão</button>
+					</a>
+			</div>
+		</div>
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>

@@ -3,23 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package votation.DTO;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Aluno
+ * 
+ * @author Gilbert Cantaleano
  */
 @Entity
 @Table(name = "secao")
@@ -27,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Secao.findAll", query = "SELECT s FROM Secao s")
     , @NamedQuery(name = "Secao.findByIdSecao", query = "SELECT s FROM Secao s WHERE s.idSecao = :idSecao")
-    , @NamedQuery(name = "Secao.findByNome", query = "SELECT s FROM Secao s WHERE s.nome = :nome")
-    , @NamedQuery(name = "Secao.findByZona", query = "SELECT s FROM Secao s WHERE s.zona = :zona")})
+    , @NamedQuery(name = "Secao.findByNome", query = "SELECT s FROM Secao s WHERE s.nome = :nome")})
 public class Secao implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,8 +44,11 @@ public class Secao implements Serializable {
     private Integer idSecao;
     @Column(name = "nome")
     private String nome;
-    @Column(name = "zona")
-    private Integer zona;
+    @OneToMany(mappedBy = "secaoEleitoral")
+    private List<Usuario> usuarioList;
+    @JoinColumn(name = "zona", referencedColumnName = "id_zona")
+    @ManyToOne
+    private Zona zona;
 
     public Secao() {
     }
@@ -65,11 +73,20 @@ public class Secao implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getZona() {
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+    }
+
+    public Zona getZona() {
         return zona;
     }
 
-    public void setZona(Integer zona) {
+    public void setZona(Zona zona) {
         this.zona = zona;
     }
 
@@ -97,5 +114,5 @@ public class Secao implements Serializable {
     public String toString() {
         return "votation.DTO.Secao[ idSecao=" + idSecao + " ]";
     }
-    
+
 }

@@ -13,19 +13,19 @@
 	 </head>
 <body>
 	<div class="is-center" style = 'display:flex; position:absolute; top:0; bottom:0; right:0; left:0; '>
-		<form method="post" action="/votacao/index">
+		<form method="post" action="Logar">
 			<fieldset>
 				<legend>Login</legend>
 				<p>
 					<label>Numero do Título:</label> <input type="text"
-						placeholder="Seu número" name="titulo" value="">
+						placeholder="Seu número" name="numeroTitulo" value="">
 				</p>
 				<p>
 					<label>Senha:</label> <input type="password"
 						placeholder="Escreva sua senha" name="senha" value="">
 				</p>
 				<p class="is-center">
-					<input type="submit" value="Submit">
+					<button type="submit">Login</button>
 				</p>
 			</fieldset>
 		</form>

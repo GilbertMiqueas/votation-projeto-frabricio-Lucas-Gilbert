@@ -1,23 +1,22 @@
-.style{
-	width: 100%;
-	text-align: center;
+html, body {
+	height: 100%;
 }
 
-.butt {
-   border: 1px outset blue;
-   background-color: lightBlue;
-   height:50px;
-   width:50px;
-   cursor:pointer;
+html {
+	display: table;
+	margin: auto;
 }
 
-.butt:hover {
-   background-color: blue;
-   color:white;
+body {
+	display: table-cell;
+	vertical-align: middle;
 }
 
-.cent {
-  position:absolute;
-  left:50%;
-  margin-left:-100px; /*this is half of width of your div*/
+.screen {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }

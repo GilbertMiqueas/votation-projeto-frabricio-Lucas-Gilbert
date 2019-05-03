@@ -3,23 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package votation.DTO;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Aluno
+ * 
+ * @author Gilbert Cantaleano
  */
 @Entity
 @Table(name = "municipio")
@@ -27,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Municipio.findAll", query = "SELECT m FROM Municipio m")
     , @NamedQuery(name = "Municipio.findByIdMunicipio", query = "SELECT m FROM Municipio m WHERE m.idMunicipio = :idMunicipio")
-    , @NamedQuery(name = "Municipio.findByNome", query = "SELECT m FROM Municipio m WHERE m.nome = :nome")
-    , @NamedQuery(name = "Municipio.findByUf", query = "SELECT m FROM Municipio m WHERE m.uf = :uf")})
+    , @NamedQuery(name = "Municipio.findByNome", query = "SELECT m FROM Municipio m WHERE m.nome = :nome")})
 public class Municipio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,8 +44,11 @@ public class Municipio implements Serializable {
     private Integer idMunicipio;
     @Column(name = "nome")
     private String nome;
-    @Column(name = "uf")
-    private String uf;
+    @JoinColumn(name = "uf", referencedColumnName = "id_uf")
+    @ManyToOne
+    private Uf uf;
+    @OneToMany(mappedBy = "municipio")
+    private List<Usuario> usuarioList;
 
     public Municipio() {
     }
@@ -65,12 +73,21 @@ public class Municipio implements Serializable {
         this.nome = nome;
     }
 
-    public String getUf() {
+    public Uf getUf() {
         return uf;
     }
 
-    public void setUf(String uf) {
+    public void setUf(Uf uf) {
         this.uf = uf;
+    }
+
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @Override
@@ -97,5 +114,5 @@ public class Municipio implements Serializable {
     public String toString() {
         return "votation.DTO.Municipio[ idMunicipio=" + idMunicipio + " ]";
     }
-    
+
 }

@@ -3,26 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package votation.DTO;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Aluno
+ * 
+ * @author Gilbert Cantaleano
  */
 @Entity
 @Table(name = "usuario")
@@ -32,13 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
     , @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome")
     , @NamedQuery(name = "Usuario.findByDataNascimento", query = "SELECT u FROM Usuario u WHERE u.dataNascimento = :dataNascimento")
-    , @NamedQuery(name = "Usuario.findByMunicipio", query = "SELECT u FROM Usuario u WHERE u.municipio = :municipio")
-    , @NamedQuery(name = "Usuario.findByUf", query = "SELECT u FROM Usuario u WHERE u.uf = :uf")
     , @NamedQuery(name = "Usuario.findByNumeroTitulo", query = "SELECT u FROM Usuario u WHERE u.numeroTitulo = :numeroTitulo")
     , @NamedQuery(name = "Usuario.findByDataEmissao", query = "SELECT u FROM Usuario u WHERE u.dataEmissao = :dataEmissao")
-    , @NamedQuery(name = "Usuario.findByZona", query = "SELECT u FROM Usuario u WHERE u.zona = :zona")
-    , @NamedQuery(name = "Usuario.findBySecaoEleitoral", query = "SELECT u FROM Usuario u WHERE u.secaoEleitoral = :secaoEleitoral")
-    , @NamedQuery(name = "Usuario.findByTipoUsuario", query = "SELECT u FROM Usuario u WHERE u.tipoUsuario = :tipoUsuario")})
+    , @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,31 +55,27 @@ public class Usuario implements Serializable {
     @Column(name = "data_nascimento")
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
-    @Column(name = "municipio")
-    private Integer municipio;
-    @Column(name = "uf")
-    private Integer uf;
     @Column(name = "numero_titulo")
     private String numeroTitulo;
     @Column(name = "data_emissao")
     @Temporal(TemporalType.DATE)
     private Date dataEmissao;
-    @Column(name = "zona")
-    private Integer zona;
-    @Column(name = "secao_eleitoral")
-    private Integer secaoEleitoral;
-    @Column(name = "tipo_usuario")
-    private Integer tipoUsuario;
-	@Column(name = "senha")
+    @Column(name = "senha")
     private String senha;
-    
-    public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    @Lob
+    @Column(name = "url_foto")
+    private String urlFoto;
+    @OneToMany(mappedBy = "usuario")
+    private List<Log> logList;
+    @JoinColumn(name = "municipio", referencedColumnName = "id_municipio")
+    @ManyToOne
+    private Municipio municipio;
+    @JoinColumn(name = "secao_eleitoral", referencedColumnName = "id_secao")
+    @ManyToOne
+    private Secao secaoEleitoral;
+    @JoinColumn(name = "tipo_usuario", referencedColumnName = "id_tipo_usuario")
+    @ManyToOne
+    private TipoUsuario tipoUsuario;
 
     public Usuario() {
     }
@@ -109,22 +108,6 @@ public class Usuario implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public Integer getMunicipio() {
-        return municipio;
-    }
-
-    public void setMunicipio(Integer municipio) {
-        this.municipio = municipio;
-    }
-
-    public Integer getUf() {
-        return uf;
-    }
-
-    public void setUf(Integer uf) {
-        this.uf = uf;
-    }
-
     public String getNumeroTitulo() {
         return numeroTitulo;
     }
@@ -141,27 +124,52 @@ public class Usuario implements Serializable {
         this.dataEmissao = dataEmissao;
     }
 
-    public Integer getZona() {
-        return zona;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setZona(Integer zona) {
-        this.zona = zona;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public Integer getSecaoEleitoral() {
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
+
+    @XmlTransient
+    public List<Log> getLogList() {
+        return logList;
+    }
+
+    public void setLogList(List<Log> logList) {
+        this.logList = logList;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
+    public Secao getSecaoEleitoral() {
         return secaoEleitoral;
     }
 
-    public void setSecaoEleitoral(Integer secaoEleitoral) {
+    public void setSecaoEleitoral(Secao secaoEleitoral) {
         this.secaoEleitoral = secaoEleitoral;
     }
 
-    public Integer getTipoUsuario() {
+    public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(Integer tipoUsuario) {
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
@@ -189,5 +197,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "votation.DTO.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

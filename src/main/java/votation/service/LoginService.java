@@ -1,6 +1,6 @@
 package votation.service;
 
-import static java.lang.System.out;
+/* import static java.lang.System.out;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,9 +21,6 @@ import votation.controller.LoginController;
 @WebServlet(name = "Logar", urlPatterns = { "/index" })
 public class LoginService extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -42,7 +39,7 @@ public class LoginService extends HttpServlet {
 
 		String username = request.getParameter("titulo");
 		String senha = request.getParameter("senha");
-
+		String tipoUsuario = request.getParameter("tipo_usuario");
 		if (username != null && senha != null) {
 			RequestDispatcher rd = null;
 
@@ -53,15 +50,25 @@ public class LoginService extends HttpServlet {
 				if (usuario != null) {
 					HttpSession session = request.getSession(true);
 					session.setAttribute("usuario", username);
-
 					session.putValue("loginUsuario", session.getAttribute("usuario")); // Grava a session com o Login
-					request.getRequestDispatcher("index.jsp").forward(request, response);
+					
+					if(usuario.getTipoUsuario().getIdTipoUsuario() == 1) {
+						request.getRequestDispatcher("voto.jsp").forward(request, response);
+					}
+					else if(usuario.getTipoUsuario().getIdTipoUsuario() == 2) {
+						request.getRequestDispatcher("autenticaVoto.jsp").forward(request, response);
+					}
+					else if(usuario.getTipoUsuario().getIdTipoUsuario() == 3) {
+						request.getRequestDispatcher("chefeSessao.jsp").forward(request, response);
+					}
+					else if(usuario.getTipoUsuario().getIdTipoUsuario() == 4) {
+						request.getRequestDispatcher("cadastro_eleitor.jsp").forward(request, response);
+					}
+				
+					
+					
 
-					/*
-					 * request.setAttribute("msg", usuario);
-					 * rd=request.getRequestDispatcher("tela_download.jsp");
-					 * rd.forward(request,response);
-					 */
+
 				} else {
 					rd = request.getRequestDispatcher("error403.jsp");
 					rd.forward(request, response);
@@ -83,5 +90,5 @@ public class LoginService extends HttpServlet {
 		return "Short description";
 	}// </editor-fold>
 
-}
+}*/
 

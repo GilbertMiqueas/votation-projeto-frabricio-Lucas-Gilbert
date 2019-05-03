@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package votation.DTO;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Aluno
+ * 
+ * @author Gilbert Cantaleano
  */
 @Entity
 @Table(name = "tipo_usuario")
@@ -38,6 +42,8 @@ public class TipoUsuario implements Serializable {
     private Integer idTipoUsuario;
     @Column(name = "descricao")
     private String descricao;
+    @OneToMany(mappedBy = "tipoUsuario")
+    private List<Usuario> usuarioList;
 
     public TipoUsuario() {
     }
@@ -60,6 +66,15 @@ public class TipoUsuario implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @Override
@@ -86,5 +101,5 @@ public class TipoUsuario implements Serializable {
     public String toString() {
         return "votation.DTO.TipoUsuario[ idTipoUsuario=" + idTipoUsuario + " ]";
     }
-    
+
 }

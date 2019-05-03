@@ -4,76 +4,68 @@
 <html>
 <head>
 <link href="./css/voto.css" rel="stylesheet" type="text/css">
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://unpkg.com/chota@latest">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/chota@latest">
 
 <meta charset="ISO-8859-1">
 <script src="./js/voto.js" type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>Meu Voto</title>
-
+<title>Pagina de votação</title>
 </head>
 <body>
-	
-	<div id="candidatos"></div>
-	<div class="container cent">
-	<div class="is-center row">
-			<div class="col-12">
-				<input value="" id="numero_candidato" type="number" disabled>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-1">
-				<button class='button outline dark' onclick="digitar(1)">1</button>
-			</div>
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(2)">2</button>
-			</div>
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(3)">3</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(4)">4</button>
-			</div>
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(5)">5</button>
-			</div>
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(6)">6</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(7)">7</button>
-			</div>
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(8)">8</button>
-			</div>
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(9)">9</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-1">
-				<button class="button dark" onclick="limpar()">Limpar</button>
+	<input type="hidden" id="id_usuario_logado" name="id_usuario_logado"
+		value="<%=session.getValue("idUsuario")%>">
+	<input type="hidden" id="eleitor" name="eleitor"
+		value="<%=request.getParameter("eleitor")%>">
 
+	<div class="screen">
+		<div>
+			<h3 class="title">Digite o número do seu candidato</h3>
+		</div>
+		<div>
+			<input id="numero_candidato" type="number"
+				onkeyup="buscarCandidato(this);">
+		</div>
+
+		<div id="candidato" style="width: 100%; text-align: center"></div>
+
+	</div>
+
+	<!-- The Modal -->
+	<div class="modal" id="modal_login" role="dialog"
+		style="min-width: 1024px !important;">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Autenticação de Login</h4>
+				</div>
+				<div class="modal-body">
+					<label>Título</label> 
+					<input type="text" id="titulo_logar"> 
+					<label>Senha</label> 
+					<input type="text" id="senha" >
+				</div>
+				<div class="modal-footer">
+					<button type="button" onClick='logar()' class="button primary pull-left">Confirmar</button>
+					<a href='index.jsp'>
+						<button>Voltar</button>
+					</a>
+				</div>
 			</div>
-			<div class="col-md-1">
-				<button class="button outline dark" onclick="digitar(0)">0</button>
-			</div>
-			<div class="col-md-1">
-				<button onClick='alert("Voto comfirmado!!!")'  class="button dark">Comfirmar</button>
-			</div>
+
 		</div>
 	</div>
-	<div></div>
-
 </body>
+<script src="./vendor/jquery/jquery.min.js"></script>
 
+<script>
+	$(document).ready(function() {
+		var modal = document.getElementById("modal_login");
+		modal.style.display = "block";
+	});
+</script>
 
 </html>
